@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AYSER — Türkiye'nin Yerli İş Makinası Gücü</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-dark:#050810;
+      --bg-gradient-start:#071018;
+      --bg-gradient-end:#0b0b0d;  
+      --accent:#ff7a00;
+      --gold:#caa14b;
+      --muted:rgba(255,255,255,0.7);
+      --glass:rgba(255,255,255,0.03);
+      --glass-border:rgba(255,255,255,0.08);
+      font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    }
+    
+    *{box-sizing:border-box;margin:0;padding:0}
+    
+    body{
+      background:linear-gradient(180deg,var(--bg-gradient-start) 0%,var(--bg-gradient-end) 100%);
+      color:white;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 24px;
+    }
+    
+    /* Animated Background */
+    .bg-animation{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    
+    .bg-circle{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(80px);
+      opacity:0.15;
+      animation:float 20s infinite ease-in-out;
+    }
+    
+    .bg-circle:nth-child(1){
+      width:500px;
+      height:500px;
+      background:var(--accent);
+      top:-200px;
+      right:-200px;
+      animation-delay:0s;
+    }
+    
+    .bg-circle:nth-child(2){
+      width:400px;
+      height:400px;
+      background:var(--gold);
+      bottom:-150px;
+      left:-150px;
+      animation-delay:7s;
+    }
+    
+    .bg-circle:nth-child(3){
+      width:350px;
+      height:350px;
+      background:#4a90e2;
+      top:50%;
+      left:50%;
+      animation-delay:14s;
+    }
+    
+    @keyframes float{
+      0%,100%{transform:translate(0,0) scale(1)}
+      33%{transform:translate(50px,-50px) scale(1.1)}
+      66%{transform:translate(-30px,30px) scale(0.9)}
+    }
+    
+    /* Header */
+    header{
+      position:relative;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:24px 0;
+      animation:slideDown 0.8s ease-out;
+    }
+    
+    @keyframes slideDown{
+      from{opacity:0;transform:translateY(-20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    
+    .logo{
+      width:64px;
+      height:64px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,var(--accent),var(--gold));
+      box-shadow:0 8px 32px rgba(202,161,75,0.25);
+      transition:transform 0.3s ease,box-shadow 0.3s ease;
+    }
+    
+    .logo:hover{
+      transform:translateY(-4px) rotate(5deg);
+      box-shadow:0 12px 48px rgba(202,161,75,0.35);
+    }
+    
+    .logo svg{width:38px;height:38px}
+    
+    .brand-text h1{
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:0.5px;
+      background:linear-gradient(90deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .brand-text p{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+    
+    nav{
+      display:flex;
+      gap:8px;
+    }
+    
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:10px 20px;
+      border-radius:10px;
+      font-weight:600;
+      font-size:14px;
+      transition:all 0.3s ease;
+      position:relative;
+    }
+    
+    nav a:hover{
+      color:white;
+      background:rgba(255,255,255,0.05);
+    }
+    
+    nav a::after{
+      content:'';
+      position:absolute;
+      bottom:8px;
+      left:20px;
+      right:20px;
+      height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));
+      transform:scaleX(0);
+      transition:transform 0.3s ease;
+    }
+    
+    nav a:hover::after{
+      transform:scaleX(1);
+    }
+    
+    /* Hero Section */
+    .hero{
+      position:relative;
+      z-index:10;
+      display:grid;
+      grid-template-columns:1fr 400px;
+      gap:32px;
+      align-items:center;
+      padding:60px 0;
+      animation:fadeInUp 1s ease-out 0.2s both;
+    }
+    
+    @keyframes fadeInUp{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    
+    .hero-content{
+      background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+      backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);
+      padding:48px;
+      border-radius:24px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.4);
+      transition:transform 0.3s ease,box-shadow 0.3s ease;
+    }
+    
+    .hero-content:hover{
+      transform:translateY(-5px);
+      box-shadow:0 25px 70px rgba(0,0,0,0.5);
+    }
+    
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 16px;
+      border-radius:999px;
+      background:rgba(255,122,0,0.15);
+      border:1px solid rgba(255,122,0,0.3);
+      color:var(--accent);
+      font-weight:700;
+      font-size:13px;
+      margin-bottom:20px;
+    }
+    
+    .eyebrow::before{
+      content:'🏭';
+      font-size:16px;
+    }
+    
+    .hero h2{
+      font-size:42px;
+      font-weight:900;
+      line-height:1.2;
+      margin:16px 0;
+      background:linear-gradient(135deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .lead{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.7;
+      margin:16px 0;
+    }
+    
+    .specs{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:24px 0;
+    }
+    
+    .spec{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      padding:12px 16px;
+      border-radius:12px;
+      font-weight:700;
+      color:var(--muted);
+      font-size:13px;
+      transition:all 0.3s ease;
+    }
+    
+    .spec:hover{
+      background:rgba(255,122,0,0.1);
+      border-color:rgba(255,122,0,0.3);
+      transform:translateY(-2px);
+    }
+    
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      padding:16px 32px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));
+      color:#081018;
+      font-weight:800;
+      font-size:15px;
+      border:none;
+      cursor:pointer;
+      margin-top:24px;
+      box-shadow:0 10px 30px rgba(255,122,0,0.3);
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .cta::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
+      transition:left 0.5s ease;
+    }
+    
+    .cta:hover::before{
+      left:100%;
+    }
+    
+    .cta:hover{
+      transform:translateY(-3px);
+      box-shadow:0 15px 40px rgba(255,122,0,0.4);
+    }
+    
+    .cta::after{
+      content:'→';
+      font-size:20px;
+      transition:transform 0.3s ease;
+    }
+    
+    .cta:hover::after{
+      transform:translateX(5px);
+    }
+    
+    .quick-contact{
+      background:linear-gradient(135deg,rgba(202,161,75,0.08),rgba(255,122,0,0.06));
+      backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);
+      padding:32px;
+      border-radius:24px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    }
+    
+    .quick-contact h3{
+      font-size:20px;
+      margin-bottom:20px;
+      background:linear-gradient(90deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .contact-item{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:16px 0;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      transition:transform 0.3s ease;
+    }
+    
+    .contact-item:last-child{
+      border-bottom:none;
+    }
+    
+    .contact-item:hover{
+      transform:translateX(5px);
+    }
+    
+    .contact-icon{
+      width:48px;
+      height:48px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--gold));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      flex-shrink:0;
+    }
+    
+    .contact-info b{
+      display:block;
+      font-size:15px;
+      margin-bottom:4px;
+    }
+    
+    .contact-info small{
+      color:var(--muted);
+      font-size:12px;
+    }
+    
+    /* Products Section */
+    #products{
+      position:relative;
+      z-index:10;
+      padding:80px 0;
+      animation:fadeInUp 1s ease-out 0.4s both;
+    }
+    
+    .section-header{
+      text-align:center;
+      margin-bottom:48px;
+    }
+    
+    .section-header h2{
+      font-size:38px;
+      font-weight:900;
+      margin-bottom:12px;
+      background:linear-gradient(135deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .section-header p{
+      color:var(--muted);
+      font-size:16px;
+    }
+    
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:24px;
+    }
+    
+    .product-card{
+      background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+      backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);
+      border-radius:20px;
+      padding:24px;
+      transition:all 0.4s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .product-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:linear-gradient(135deg,rgba(255,122,0,0.1),rgba(202,161,75,0.1));
+      opacity:0;
+      transition:opacity 0.4s ease;
+    }
+    
+    .product-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 20px 50px rgba(255,122,0,0.2);
+      border-color:rgba(255,122,0,0.3);
+    }
+    
+    .product-card:hover::before{
+      opacity:1;
+    }
+    
+    .product-icon{
+      position:relative;
+      width:100%;
+      height:160px;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--accent),var(--gold));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:20px;
+      overflow:hidden;
+    }
+    
+    .product-icon svg{
+      width:80px;
+      height:80px;
+      fill:#081018;
+      opacity:0.9;
+      transition:transform 0.4s ease;
+    }
+    
+    .product-card:hover .product-icon svg{
+      transform:scale(1.1) rotate(5deg);
+    }
+    
+    .product-title{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:8px;
+      position:relative;
+      z-index:1;
+    }
+    
+    .product-subtitle{
+      color:var(--accent);
+      font-size:13px;
+      font-weight:600;
+      margin-bottom:12px;
+      position:relative;
+      z-index:1;
+    }
+    
+    .product-desc{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+      position:relative;
+      z-index:1;
+    }
+    
+    /* About Section */
+    #about{
+      position:relative;
+      z-index:10;
+      padding:80px 0;
+      animation:fadeInUp 1s ease-out 0.6s both;
+    }
+    
+    .about-content{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:48px;
+      align-items:center;
+    }
+    
+    .about-text h2{
+      font-size:38px;
+      font-weight:900;
+      margin-bottom:20px;
+      background:linear-gradient(135deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .about-features{
+      display:grid;
+      gap:16px;
+      margin-top:32px;
+    }
+    
+    .feature{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:16px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--glass-border);
+      border-radius:12px;
+      transition:all 0.3s ease;
+    }
+    
+    .feature:hover{
+      background:rgba(255,122,0,0.08);
+      border-color:rgba(255,122,0,0.2);
+      transform:translateX(10px);
+    }
+    
+    .feature-icon{
+      width:48px;
+      height:48px;
+      border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--gold));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      flex-shrink:0;
+    }
+    
+    .about-visual{
+      position:relative;
+      height:400px;
+      border-radius:24px;
+      background:linear-gradient(135deg,var(--accent),var(--gold));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    
+    .about-visual::before{
+      content:'';
+      position:absolute;
+      width:200%;
+      height:200%;
+      background:radial-gradient(circle,rgba(255,255,255,0.1) 20%,transparent 60%);
+      animation:rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+    
+    .about-visual svg{
+      width:120px;
+      height:120px;
+      fill:#081018;
+      opacity:0.3;
+      position:relative;
+      z-index:1;
+    }
+    
+    /* Contact Section */
+    #contact{
+      position:relative;
+      z-index:10;
+      padding:80px 0;
+      animation:fadeInUp 1s ease-out 0.8s both;
+    }
+    
+    .contact-wrapper{
+      background:linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+      backdrop-filter:blur(20px);
+      border:1px solid var(--glass-border);
+      border-radius:24px;
+      padding:48px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.4);
+    }
+    
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:48px;
+    }
+    
+    .contact-info-section h2{
+      font-size:32px;
+      font-weight:900;
+      margin-bottom:16px;
+      background:linear-gradient(135deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .contact-details{
+      margin-top:32px;
+    }
+    
+    .contact-detail{
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:20px;
+      padding:16px;
+      background:rgba(255,255,255,0.02);
+      border-radius:12px;
+      transition:all 0.3s ease;
+    }
+    
+    .contact-detail:hover{
+      background:rgba(255,122,0,0.08);
+      transform:translateX(5px);
+    }
+    
+    form{
+      display:grid;
+      gap:16px;
+    }
+    
+    .form-group{
+      position:relative;
+    }
+    
+    input,textarea,select{
+      width:100%;
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--glass-border);
+      padding:16px;
+      border-radius:12px;
+      color:white;
+      font-size:14px;
+      font-family:inherit;
+      transition:all 0.3s ease;
+    }
+    
+    input:focus,textarea:focus,select:focus{
+      outline:none;
+      border-color:var(--accent);
+      background:rgba(255,255,255,0.05);
+      box-shadow:0 0 0 3px rgba(255,122,0,0.1);
+    }
+    
+    input::placeholder,textarea::placeholder{
+      color:var(--muted);
+    }
+    
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+    
+    .submit-btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      padding:16px 32px;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));
+      color:#081018;
+      font-weight:800;
+      font-size:15px;
+      border:none;
+      cursor:pointer;
+      box-shadow:0 10px 30px rgba(255,122,0,0.3);
+      transition:all 0.3s ease;
+    }
+    
+    .submit-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 15px 40px rgba(255,122,0,0.4);
+    }
+    
+    /* Footer */
+    footer{
+      position:relative;
+      z-index:10;
+      margin-top:80px;
+      padding:32px 0;
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+    
+    .footer-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+    
+    .footer-logo{
+      font-size:20px;
+      font-weight:900;
+      background:linear-gradient(90deg,#fff,var(--gold));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .footer-links{
+      display:flex;
+      gap:24px;
+    }
+    
+    .footer-links a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:14px;
+      transition:color 0.3s ease;
+    }
+    
+    .footer-links a:hover{
+      color:var(--accent);
+    }
+    
+    /* Responsive Design */
+    @media (max-width:1024px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+      
+      .contact-grid{
+        grid-template-columns:1fr;
+      }
+      
+      .about-content{
+        grid-template-columns:1fr;
+      }
+    }
+    
+    @media (max-width:768px){
+      header{
+        flex-direction:column;
+        gap:16px;
+      }
+      
+      nav{
+        width:100%;
+        justify-content:center;
+      }
+      
+      .hero h2{
+        font-size:32px;
+      }
+      
+      .hero-content{
+        padding:32px;
+      }
+      
+      .section-header h2{
+        font-size:28px;
+      }
+      
+      .products-grid{
+        grid-template-columns:1fr;
+      }
+      
+      .contact-wrapper{
+        padding:32px 24px;
+      }
+    }
+    
+    @media (max-width:480px){
+      .container{
+        padding:0 16px;
+      }
+      
+      .hero-content{
+        padding:24px;
+      }
+      
+      .quick-contact{
+        padding:24px;
+      }
+      
+      .specs{
+        flex-direction:column;
+      }
+      
+      .spec{
+        width:100%;
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 12L42 22L32 32L22 22L32 12Z" fill="#081018" opacity="0.9"/>
+            <path d="M32 32L42 42L32 52L22 42L32 32Z" fill="#081018" opacity="0.7"/>
+            <circle cx="32" cy="32" r="4" fill="#081018"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>AYSER</h1>
+          <p>Türkiye'nin Yerli İş Makinesi Gücü</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#products">Ürünler</a>
+        <a href="#about">Hakkımızda</a>
+        <a href="#contact">İletişim</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">1978'den beri Yerli Üretim</span>
+        <h2>Türkiye'nin Güçlü İş Makinaları</h2>
+        <p class="lead">AYSER, 1978'de kurulan ve kendi mühendislerimizin geliştirdiği makinelerle yerli üretim anlayışını Türkiye'de başlatan köklü bir markadır. Kepçe yükleyici, hidrolik ekskavatör, lastikli yükleyici, greyder ve silindir gibi geniş bir ürün yelpazesi sunuyoruz. Ürünlerimizi 100'ün üzerinde ülkeye ihraç ediyoruz.</p>
+        
+        <div class="specs">
+          <div class="spec">🏆 11 Yıl Piyasa Lideri</div>
+          <div class="spec">🌍 100+ Ülkeye İhracat</div>
+          <div class="spec">🏭 İzmir & Ankara Tesisleri</div>
+        </div>
+        
+        <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          Ücretsiz Teklif Al
+        </button>
+        
+        <div style="margin-top:24px;color:var(--muted);font-size:13px;line-height:1.8">
+          ✓ Türkiye ve Yurtdışı Satış<br>
+          ✓ Garanti & Yedek Parça Desteği<br>
+          ✓ Nakliye & Kurulum Hizmetleri
+        </div>
+      </div>
+
+      <aside class="quick-contact">
+        <h3>Hızlı İletişim</h3>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <b>0545 194 66 00</b>
+            <small>7/24 Telefon Desteği</small>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-info">
+            <b>serhataydoğan@gmail.com</b>
+            <small>E-posta</small>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <b>Ankara</b>
+            <small>Merkez Ofis</small>
+          </div>
+        </div>
+        
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05)">
+          <p style="color:var(--muted);font-size:13px;line-height:1.6">
+            Bize ulaşın, ücretsiz teklif ve teknik danışmanlık sağlarız. Uzman ekibimiz size yardımcı olmak için hazır!
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="products">
+      <div class="section-header">
+        <h2>Ürün Portföyümüz</h2>
+        <p>Geniş iş makinası yelpazemiz ile her türlü projenize çözüm sunuyoruz</p>
+      </div>
+      
+      <div class="products-grid">
+        <article class="product-card">
+          <div class="product-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="40" width="60" height="35" rx="5"/>
+              <rect x="15" y="70" width="15" height="20" rx="3"/>
+              <rect x="70" y="70" width="15" height="20" rx="3"/>
+              <path d="M30 40 L30 20 L50 20 L50 40"/>
+              <circle cx="22" cy="82" r="8"/>
+              <circle cx="78" cy="82" r="8"/>
+            </svg>
+          </div>
+          <div class="product-title">Backhoe Loader</div>
+          <div class="product-subtitle">KEPÇE YÜKLEYİCİ</div>
+          <div class="product-desc">Geniş iş alanları için güçlü ve güvenilir kepçe y
